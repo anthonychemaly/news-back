@@ -23,7 +23,7 @@ const Article = require("./models/article");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "article-57c3e.appspot.com",
+  storageBucket: "chemaly-news.appspot.com",
 });
 const bucket = admin.storage().bucket();
 
