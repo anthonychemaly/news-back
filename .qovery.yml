@@ -1,0 +1,11 @@
+---
+application:
+  name: "news-back"
+  project: "news-chemaly"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-news-back"
+  routes:
+  - application_name: "news-back"
+    paths:
+    - "/*"
