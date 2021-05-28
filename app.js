@@ -16,7 +16,7 @@ const Admin = require("./models/admin");
 var indexRouter = require("./routes/index");
 var adminsRouter = require("./routes/admin");
 var usersRouter = require("./routes/users");
-// var storageRouter = require("./routes/storage");
+var categoryRouter = require("./routes/category");
 var articlesRouter = require("./routes/article");
 const Article = require("./models/article");
 // var fileupload = require("express-fileupload");
@@ -56,6 +56,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/admin", adminsRouter);
+app.use("/category", categoryRouter);
 app.use("/users", usersRouter);
 app.use("/articles", articlesRouter);
 
