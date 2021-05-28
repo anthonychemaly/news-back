@@ -5,6 +5,8 @@ exports.postArticle = async (req, res) => {
     title: req.body.title,
     body: req.body.body,
     image: req.body.image,
+    category: req.body.category,
+    created_at: new Date(),
   });
   article.save((err, data) => {
     if (err) {
