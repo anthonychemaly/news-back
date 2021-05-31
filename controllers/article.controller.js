@@ -1,11 +1,15 @@
 const Article = require("../models/article");
 
 exports.postArticle = async (req, res) => {
+  var token =
+    req.body.token || req.query.token || req.headers["x-access-token"];
+  var decodedtoken = jwt_decode(token);
   var article = new Article({
     title: req.body.title,
     body: req.body.body,
     image: req.body.image,
     category: req.body.category,
+    author: decodedtoken.id,
     created_at: new Date(),
   });
   article.save((err, data) => {
