@@ -1,5 +1,4 @@
 const Article = require("../models/article");
-const jwt_decode = require("jwt-decode");
 
 exports.postArticle = async (req, res) => {
   var article = new Article({
@@ -72,6 +71,24 @@ exports.deleteArticle = async (req, res) => {
       });
     }
   });
+};
+
+exports.getArticle = async (req, res) => {
+  Article.findById(req.params.id)
+    .populate("image")
+    .exec((err, data) => {
+      if (err) {
+        res.send({
+          success: false,
+          error: err,
+        });
+      } else {
+        res.send({
+          success: true,
+          data: data,
+        });
+      }
+    });
 };
 
 exports.getArticleByHost = async (req, res) => {
