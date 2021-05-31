@@ -31,6 +31,8 @@ exports.postArticle = async (req, res) => {
 exports.getAllArticles = async (req, res) => {
   Article.find({})
     .populate("image")
+    .populate("category")
+    .populate("author")
     .exec((err, data) => {
       if (err) {
         res.send({
