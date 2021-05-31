@@ -81,6 +81,8 @@ exports.deleteArticle = async (req, res) => {
 exports.getArticle = async (req, res) => {
   Article.findById(req.params.id)
     .populate("image")
+    .populate("category")
+    .populate("author")
     .exec((err, data) => {
       if (err) {
         res.send({
@@ -102,6 +104,8 @@ exports.getArticleByHost = async (req, res) => {
   var decodedtoken = jwt_decode(token);
   Article.find({ author: decodedtoken.id })
     .populate("image")
+    .populate("category")
+    .populate("author")
     .exec((err, data) => {
       if (err) {
         res.send({
