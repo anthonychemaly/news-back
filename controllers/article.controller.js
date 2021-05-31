@@ -1,4 +1,5 @@
 const Article = require("../models/article");
+const jwt_decode = require("jwt-decode");
 
 exports.postArticle = async (req, res) => {
   var article = new Article({
@@ -73,8 +74,11 @@ exports.deleteArticle = async (req, res) => {
   });
 };
 
-exports.getArticle = async (req, res) => {
-  Article.findById(req.params.id)
+exports.getArticleByHost = async (req, res) => {
+  var token =
+    req.body.token || req.query.token || req.headers["x-access-token"];
+  var decodedtoken = jwt_decode(token);
+  Article.find({ author: decodedtoken.id })
     .populate("image")
     .exec((err, data) => {
       if (err) {
