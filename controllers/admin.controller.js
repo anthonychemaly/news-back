@@ -31,26 +31,28 @@ exports.AdminLogin = async function (req, res, next) {
           } else {
             var payload = {
               id: admin._id,
-              role: "admin",
+              role: admin.role,
             };
             var token = jwt.sign(payload, config.secret);
 
-            Admin.findById(admin._id).populate('picture').exec((err, result)=> {
-              var newSession = new Sessions({
-                ip: req.body.ip,
-                aId: result._id,
-                created_at: new Date(),
-              });
-              newSession.save().then((sessionData) => {
-                res.send({
-                  success: true,
-                  id: result._id,
-                  user: result,
-                  token: token,
-                  name: result.name,
+            Admin.findById(admin._id)
+              .populate("picture")
+              .exec((err, result) => {
+                var newSession = new Sessions({
+                  ip: req.body.ip,
+                  aId: result._id,
+                  created_at: new Date(),
+                });
+                newSession.save().then((sessionData) => {
+                  res.send({
+                    success: true,
+                    id: result._id,
+                    user: result,
+                    token: token,
+                    name: result.name,
+                  });
                 });
               });
-            });
           }
         }
       );

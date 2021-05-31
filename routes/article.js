@@ -1,12 +1,13 @@
 var express = require("express");
 var router = express.Router();
 var apis = require("../controllers/article.controller");
+var auth = require("../middlewares/auth");
 
 /* GET users listing. */
 router.get("/:id", apis.getArticle);
-router.put("/:id", apis.updateArticle);
-router.delete("/:id", apis.deleteArticle);
+router.put("/:id", auth("author", "admin"), apis.updateArticle);
+router.delete("/:id", auth("author", "admin"), apis.deleteArticle);
 router.get("/", apis.getAllArticles);
-router.post("/", apis.postArticle);
+router.post("/", auth("author", "admin"), apis.postArticle);
 
 module.exports = router;
